@@ -7,6 +7,13 @@ The Java™ Programming Language is a general-purpose, concurrent, strongly type
 
 Learn more about Java from their documentation [official site](https://docs.oracle.com/javase/8/docs/technotes/guides/language/).
 
+This Java Study Group is directed towards beginners, career-shifters and hobbyists - even with zero knowledge!
+
+Recommended softwares to install:
+	Java JRE
+	Notepad++ or Sublime
+	Any IDE is optional
+
 ## About this study group
 
 Read this [document](wwcodemanila/study_groups.md) first to know what study groups are.

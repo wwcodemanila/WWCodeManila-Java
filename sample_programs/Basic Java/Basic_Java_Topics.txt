@@ -1,0 +1,28 @@
+Basic Java
+
+Topics
+- Java Keywords
+- Data Types
+	- Primitive
+	- Wrappers*
+- Java Operators
+	- Assignment
+	- Arithmetic
+	- Unary*
+	- Equality and Relational
+	- instanceOf*
+	- Logical
+	- Ternary*
+- Java Input and Output (console)*
+- Conditional Statements
+- Loop
+- Java Arrays
+	- Single
+	- Multidimensional Arrays
+
+- OOP (4 pillars of Java) [ inheritance | abstraction | encapsulation | polymorphism ]
+
+- Java Classes
+- Methods
+- Constructors
+- Access Modifiers
