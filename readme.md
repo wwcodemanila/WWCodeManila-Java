@@ -1,6 +1,6 @@
 # Women Who Code Manila Java Study Group
 
-![PHP](https://upload.wikimedia.org/wikipedia/en/thumb/3/30/Java_programming_language_logo.svg/1200px-Java_programming_language_logo.svg.png)
+![JAVA](https://upload.wikimedia.org/wikipedia/de/e/e1/Java-Logo.svg)
 
 The Java™ Programming Language is a general-purpose, concurrent, strongly typed, class-based object-oriented language. It is normally compiled to the bytecode instruction set and binary format defined in the Java Virtual Machine Specification.
 
