@@ -16,7 +16,7 @@ Recommended softwares to install:
 
 ## About this study group
 
-Read this [document](wwcodemanila/study_groups.md) first to know what study groups are.
+!> Read this [document](wwcodemanila/study_groups.md) first to know what study groups are.
 
 This study group is held once a month and is led by our volunteer leaders. However, everyone is welcome to join, learn, and share their knowledge in the community.
 
@@ -26,7 +26,7 @@ Everyone joining this study group and other Women Who Code events must follow ou
 
 - [Gitter Chat](https://gitter.im/WWCodeManila/Java): Interact with the community. You can share something about Java, or ask help if you're stuck on a problem.
 - [Github](https://github.com/wwcodemanila/WWCodeManila-Java): View study group code
-- [Meetup](https://bit.ly/wwcodemanilameetups): Get updated with the upcoming study group and other event schedules.
+- [Meetup](https://meetup.com/Women-Who-Code-Manila): Get updated with the upcoming study group and other event schedules.
 - [Facebook](https://facebook.com/wwcodemanila): Get updated about what's happening with the community.
 - [Twitter](https://twitter.com/wwcodemanila): Get updates about current and future events.
 

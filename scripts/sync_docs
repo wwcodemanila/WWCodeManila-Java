@@ -1,0 +1,75 @@
+#!/usr/bin/env bash
+
+# This is script to sync docs changes to multiple repos
+# Requires GITHUB_TOKEN to be set
+# NO NEED to run this locally.
+
+if [ "$1" = "" ]; then
+  echo "SHA is needed"
+  exit 1
+fi
+
+COMMIT_RANGE="$1..master"
+COMMIT_SHAS=($(git log ${COMMIT_RANGE} --format="%h" --no-merges --reverse))
+FILES_CHANGED=$(git diff ${COMMIT_RANGE} --name-only -- . ':!.gitlab*' ':!.gitignore' ':!script*')
+
+if [ "${COMMIT_SHAS}" = "" -o "${FILES_CHANGED}" = "" ]; then
+  echo "No relevant docs changes"
+  exit 0
+fi
+
+REPOS=(WWCodeManila-Ruby.RubyOnRails WWCodeManila-Python WWCodeManila-HTML.CSS)
+
+for repo in "${REPOS[@]}"; do
+  git checkout master
+
+  git remote remove docs-sync
+  git remote add docs-sync https://${GITHUB_TOKEN}@github.com/wwcodemanila/${repo}.git
+
+  git fetch docs-sync master
+  git branch -D docs-sync
+  git checkout -f -b docs-sync docs-sync/master
+
+  # Patch relevant changes
+  for sha in "${COMMIT_SHAS[@]}"; do
+    binary_diff=$(git diff ${sha}~1..${sha} --name-only | grep _media)
+    text_diff=$(git diff ${sha}~1..${sha} -- . ':!.gitlab*' ':!.gitignore' ':!script*' ':!\_media*')
+    git checkout ${sha} $(git diff ${sha}~1..${sha} --name-only | grep _media)
+
+    if [ "${binary_diff}" != "" -o "${text_diff}" != "" ]; then
+      if [ "${binary_diff}" != "" ]; then
+        git checkout ${binary_diff}
+      fi
+
+      if [ "${text_diff}" != "" ]; then
+        echo "${text_diff}" | git apply -v -C1
+
+        if [ $? > 0 ]; then
+          # Try patching with smaller comparisons
+          echo "${text_diff}" | git apply -v -C0
+        fi
+      fi
+
+      commit_message=$(git show -s ${sha} --format="%s")
+      git add .
+      # Ignore files from template as well
+      git reset HEAD scripts $(git show ${sha}:.gitignore)
+      git commit -m "${commit_message}"
+    fi
+
+  done
+
+  if [ "$(git log docs-sync/master..HEAD --format='%h')" != "" ]; then
+    echo "Creating Github pull request"
+    git push -f docs-sync docs-sync
+
+    PR_BODY='{"title":"Syncing docs template","head":"docs-sync","base":"master","body":"Check https://gitlab.com/wwcodemanila/docs-template/merge_requests for the details of the latest change(s)."}'
+    curl -i -s -X POST -H "Authorization: token ${GITHUB_TOKEN}" -d "${PR_BODY}" https://api.github.com/repos/wwcodemanila/${repo}/pulls
+  else
+    echo "No changes"
+  fi
+done
+
+git checkout -f master
+git branch -D docs-sync
+git remote remove docs-sync
